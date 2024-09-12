@@ -1,0 +1,22 @@
+{
+    "associate":[    {
+        "id": 1,
+        "name": "John Doe",
+        "email": "john@example.com",
+        "phone": "123-456-7890",
+        "type": "customer",
+        "address": "123 Main St, Cityville",
+        "associategroup": "Group A",
+        "status": true
+    },
+    {
+        "id": 2,
+        "name": "Jane Smith",
+        "email": "jane@example.com",
+        "phone": "987-654-3210",
+        "type": "employee",
+        "address": "456 Elm St, Townsville",
+        "associategroup": "Group B",
+        "status": false
+    }]
+}

@@ -1,6 +1,6 @@
 // src/app/app.module.ts
 import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
+import { isDevMode, NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
@@ -10,6 +10,13 @@ import { AppComponent } from './app.component';
 import { AddassociateComponent } from './components/addassociate/addassociate.component';
 import { AssociatelistingComponent } from './components/associatelisting/associatelisting.component';
 import { MaterialModule } from './shared/material.module';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { StoreDevtools, StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { associateReducer } from './store/associate/associate.reducer';
+import { AssociateEffects } from './store/associate/associate.effects';
+import { HttpClientModule } from '@angular/common/http';
 
 // import { HttpClientModule } from '@angular/common/http';
 
@@ -21,11 +28,16 @@ import { MaterialModule } from './shared/material.module';
     // declare more components here
   ],
   imports: [
+    HttpClientModule,
     CommonModule,
     BrowserModule,
     RouterModule.forRoot(routes),
     MaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    StoreModule.forRoot({associate:associateReducer}),
+    EffectsModule.forRoot([AssociateEffects]),
+    StoreRouterConnectingModule.forRoot(),
+    StoreDevtoolsModule.instrument({maxAge:25,logOnly:!isDevMode()})
     // HttpClientModule
   ],
   providers: [
