@@ -1,22 +1,54 @@
 {
-    "associate":[    {
-        "id": 1,
-        "name": "John Doe",
-        "email": "john@example.com",
-        "phone": "123-456-7890",
-        "type": "customer",
-        "address": "123 Main St, Cityville",
-        "associategroup": "Group A",
-        "status": true
+  "associate": [
+    {
+      "id": "1",
+      "name": "John Doe",
+      "email": "john@example.com",
+      "phone": "123-456-7890",
+      "type": "customer",
+      "address": "123 Main St, Cityville",
+      "associategroup": "Group A",
+      "status": true
     },
     {
-        "id": 2,
-        "name": "Jane Smith",
-        "email": "jane@example.com",
-        "phone": "987-654-3210",
-        "type": "employee",
-        "address": "456 Elm St, Townsville",
-        "associategroup": "Group B",
-        "status": false
-    }]
+      "id": "2",
+      "name": "Jane Smith",
+      "email": "jane@example.com",
+      "phone": "987-654-3210",
+      "type": "employee",
+      "address": "456 Elm St, Townsville",
+      "associategroup": "Group B",
+      "status": false
+    },
+    {
+      "id": "3",
+      "name": "tempo",
+      "email": "temp@gmail.com",
+      "phone": "1234567890",
+      "type": "CUSTOMER",
+      "address": "E-102,silver",
+      "associategroup": "level1",
+      "status": true
+    },
+    {
+      "id": "4",
+      "name": "Demo",
+      "email": "temp@gmail.com",
+      "phone": "1234567890",
+      "type": "CUSTOMER",
+      "address": "e-02,Silver",
+      "associategroup": "level1",
+      "status": true
+    },
+    {
+      "id": 5,
+      "name": "Demo",
+      "email": "demo@gmail.com",
+      "phone": "12656256",
+      "type": "CUSTOMER",
+      "address": "temp@gmail.com",
+      "associategroup": "level1",
+      "status": true
+    }
+  ]
 }

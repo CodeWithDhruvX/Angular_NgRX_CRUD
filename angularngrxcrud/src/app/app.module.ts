@@ -17,6 +17,7 @@ import { StoreDevtools, StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { associateReducer } from './store/associate/associate.reducer';
 import { AssociateEffects } from './store/associate/associate.effects';
 import { HttpClientModule } from '@angular/common/http';
+import { AppEffects } from './store/common/app.effect';
 
 // import { HttpClientModule } from '@angular/common/http';
 
@@ -35,7 +36,7 @@ import { HttpClientModule } from '@angular/common/http';
     MaterialModule,
     ReactiveFormsModule,
     StoreModule.forRoot({associate:associateReducer}),
-    EffectsModule.forRoot([AssociateEffects]),
+    EffectsModule.forRoot([AssociateEffects,AppEffects]),
     StoreRouterConnectingModule.forRoot(),
     StoreDevtoolsModule.instrument({maxAge:25,logOnly:!isDevMode()})
     // HttpClientModule

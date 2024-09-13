@@ -1,6 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Store } from '@ngrx/store';
+import { addassociate } from '../../store/associate/associate.action';
+import { Associates } from '../../store/model/associate.model';
 
 @Component({
   selector: 'app-addassociate',
@@ -23,7 +26,7 @@ export class AddassociateComponent implements OnInit {
   })
 
   constructor(private builder: FormBuilder, private ref: MatDialogRef<AddassociateComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,) { }
+    @Inject(MAT_DIALOG_DATA) public data: any,private store:Store) { }
 
   ngOnInit() {
     this.dialogdata = this.data;
@@ -35,7 +38,20 @@ export class AddassociateComponent implements OnInit {
   }
 
   saveAssociate(){
-    
+    if(!this.associateform.invalid){
+      const _obj:Associates={
+         id:this.associateform.value.id as number,
+         name:this.associateform. value.name as string,
+         email:this.associateform.value.email as string,
+         phone:this.associateform.value.phone as string,
+         type:this.associateform.value.type as string,
+         address:this.associateform.value.address as string,
+         associategroup:this.associateform.value.group as string,
+         status:this.associateform.value.status as boolean
+      };
+      this.store.dispatch(addassociate({inputdata:_obj,length:this.data.length}));
+    }
+    this.closePopup();
   }
 
 }

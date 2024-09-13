@@ -44,13 +44,14 @@ export class AssociatelistingComponent implements OnInit {
       exitAnimationDuration: '1000ms',
       data: {
         code: code,
-        title: title
+        title: title,
+        length:this.associateList.length
       }
     })
   }
 
   edit(id:any){
-
+    this.openPopup(id,'Update Associate');
   }
 
   delete(id:any){
