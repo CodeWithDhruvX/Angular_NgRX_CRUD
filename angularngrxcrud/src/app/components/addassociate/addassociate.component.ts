@@ -34,4 +34,8 @@ export class AddassociateComponent implements OnInit {
     this.ref.close();
   }
 
+  saveAssociate(){
+    
+  }
+
 }
