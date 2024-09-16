@@ -2,8 +2,8 @@ import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { catchError, exhaustMap, map, of, switchMap } from "rxjs";
 import { AssociateService } from "../../services/associate.service";
-import { addassociate, addassociatesuccess, getassociate, getassociatesuccess, loadassociate, loadassociatefail, loadassociatesuccess } from "./associate.action";
 import { showalert } from "../common/app.action";
+import { addassociate, addassociatesuccess, deleteassociate, getassociate, getassociatesuccess, loadassociate, loadassociatefail, loadassociatesuccess, updateassociate, updateassociatesuccess } from "./associate.action";
 
 @Injectable()
 export class AssociateEffects{
@@ -33,7 +33,7 @@ export class AssociateEffects{
                     ...action.inputdata,
                     id: action.length+1 // Assigning action.length to inputdata.id
                   };
-            
+                  
                   // Return the updated action with the modified inputdata
                   return { ...action, inputdata: updatedInputData };
             }),
@@ -49,20 +49,49 @@ export class AssociateEffects{
         )
     )
 
-    _getassociate=createEffect(()=>
+    _getassociate = createEffect(() =>
         this.actin$.pipe(
             ofType(getassociate),
-            switchMap((action)=>{
-                return this.service.create(action.inputdata).pipe(
-                    switchMap((data)=>{
-                        return of(getassociatesuccess({inputdata:action.inputdata}),
-                    showalert({message:'Created Successfully',resulttype:'pass'}))
+            exhaustMap((action) => {
+                return this.service.getbycode(action.id).pipe(
+                    map((data) => {
+                        return getassociatesuccess({ obj: data })
                     }),
-                    catchError((_error)=>of(showalert({message:'Failed to create associate'+_error.message,resulttype:'fail'})))
+                    catchError((_error) => of(showalert({ message: 'Failed to fetch data :' + _error.message, resulttype: 'fail' })))
+                )
+            })
+        )
+    )
+
+    _updateassociate=createEffect(()=>
+        this.actin$.pipe(
+            ofType(updateassociate),
+            switchMap((action)=>{
+                return this.service.update(action.inputdata).pipe(
+                    switchMap((data)=>{
+                        return of(updateassociatesuccess({inputdata:action.inputdata}),
+                    showalert({message:'Updated Successfully',resulttype:'pass'}))
+                    }),
+                    catchError((_error)=>of(showalert({message:'Failed to update associate',resulttype:'fail'})))
                 );
             })
         )
     )
 
+    _deleteassociate=createEffect(()=>
+        this.actin$.pipe(
+            ofType(deleteassociate),
+            switchMap((action)=>{
+                return this.service.delete(action.code).pipe(
+                    switchMap((data)=>{
+                        return of(deleteassociate({code:action.code}),
+                    showalert({message:'Deleted Successfully',resulttype:'pass'}))
+                    }),
+                    catchError((_error)=>of(showalert({message:'Failed to deleted associate',resulttype:'fail'})))
+                );
+            })
+        )
+    )
+        
 
 }

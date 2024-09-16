@@ -2,10 +2,10 @@
   "associate": [
     {
       "id": "1",
-      "name": "John Doe",
+      "name": "Joh",
       "email": "john@example.com",
       "phone": "123-456-7890",
-      "type": "customer",
+      "type": "SUPPLIER",
       "address": "123 Main St, Cityville",
       "associategroup": "Group A",
       "status": true
@@ -41,12 +41,62 @@
       "status": true
     },
     {
-      "id": 5,
+      "id": "5",
       "name": "Demo",
       "email": "demo@gmail.com",
       "phone": "12656256",
       "type": "CUSTOMER",
       "address": "temp@gmail.com",
+      "associategroup": "level1",
+      "status": true
+    },
+    {
+      "id": "6",
+      "name": "l",
+      "email": "l@gmail.com",
+      "phone": "l",
+      "type": "CUSTOMER",
+      "address": "l",
+      "associategroup": "level1",
+      "status": true
+    },
+    {
+      "id": "7",
+      "name": "p",
+      "email": "p@gmail.com",
+      "phone": "p",
+      "type": "CUSTOMER",
+      "address": "p",
+      "associategroup": "level1",
+      "status": true
+    },
+    {
+      "id": "8",
+      "name": "ef",
+      "email": "er@gmail.com",
+      "phone": "34443",
+      "type": "CUSTOMER",
+      "address": "3",
+      "associategroup": "level1",
+      "status": true
+    },
+    {
+      "id": "9",
+      "name": "d",
+      "email": "f@gmail.com",
+      "phone": "2334323",
+      "type": "CUSTOMER",
+      "address": "fded",
+      "associategroup": "level1",
+      "status": true
+    },
+    {
+      "id": "10",
+      "name": "w",
+      "email": "e@gmail.com",
+      "phone": "423878",
+      "type": "CUSTOMER",
+      "address": "de@gmail.com",
       "associategroup": "level1",
       "status": true
     }

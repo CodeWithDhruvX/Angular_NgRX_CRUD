@@ -2,8 +2,9 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
-import { addassociate } from '../../store/associate/associate.action';
+import { addassociate, getassociatesuccess, loadassociate, updateassociate } from '../../store/associate/associate.action';
 import { Associates } from '../../store/model/associate.model';
+import { getassociate } from '../../store/associate/associate.selectors';
 
 @Component({
   selector: 'app-addassociate',
@@ -31,27 +32,42 @@ export class AddassociateComponent implements OnInit {
   ngOnInit() {
     this.dialogdata = this.data;
     this.title = this.dialogdata.title;
+    this.store.select(getassociate).subscribe((res)=>{
+      console.log(res);
+      
+      this.associateform.setValue({
+        id:res.id,name:res.name,address:res.address,email:res.email,group:res.associategroup,
+        phone:res.phone,status:res.status,type:res.type
+      });
+    })
   }
 
-  closePopup() {
-    this.ref.close();
+  closePopup(obj:any = undefined) {
+    if (obj)
+      this.ref.close(obj);
+    else
+      this.ref.close();
   }
 
-  saveAssociate(){
-    if(!this.associateform.invalid){
-      const _obj:Associates={
-         id:this.associateform.value.id as number,
-         name:this.associateform. value.name as string,
-         email:this.associateform.value.email as string,
-         phone:this.associateform.value.phone as string,
-         type:this.associateform.value.type as string,
-         address:this.associateform.value.address as string,
-         associategroup:this.associateform.value.group as string,
-         status:this.associateform.value.status as boolean
+  saveAssociate() {
+    if (!this.associateform.invalid) {
+      const _obj: Associates = {
+        id: this.associateform.value.id as number,
+        name: this.associateform.value.name as string,
+        email: this.associateform.value.email as string,
+        phone: this.associateform.value.phone as string,
+        type: this.associateform.value.type as string,
+        address: this.associateform.value.address as string,
+        associategroup: this.associateform.value.group as string,
+        status: this.associateform.value.status as boolean
       };
-      this.store.dispatch(addassociate({inputdata:_obj,length:this.data.length}));
+      if (_obj.id)
+        this.store.dispatch(updateassociate({inputdata:_obj,length:this.data.length}))
+
+      else
+        this.store.dispatch(addassociate({ inputdata: _obj, length: this.data.length }));
+      this.closePopup({ ..._obj, id: this.data.length + 1 });
     }
-    this.closePopup();
   }
 
 }
