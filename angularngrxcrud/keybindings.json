@@ -1,0 +1,20 @@
+// Place your key bindings in this file to override the defaults
+[
+    {
+        "key": "ctrl+oem_4 ctrl+oem_4",
+        "command": "workbench.action.gotoMethod"
+    },
+    {
+        "key": "ctrl+oem_7 ctrl+oem_7",
+        "command": "extension.jumpy-word"
+    },
+    {
+        "key": "ctrl+w",
+        "command": "-expand_region",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+oem_1 ctrl+oem_1",
+        "command": "expand_region"
+    }
+]
