@@ -4,7 +4,7 @@ import { AddassociateComponent } from '../addassociate/addassociate.component';
 import { Store } from '@ngrx/store';
 import { Associates } from '../../store/model/associate.model';
 import { getassociatelist } from '../../store/associate/associate.selectors';
-import { loadassociate } from '../../store/associate/associate.action';
+import { getassociate, loadassociate, openpopup } from '../../store/associate/associate.action';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -29,7 +29,6 @@ export class AssociatelistingComponent implements OnInit {
     this.store.select(getassociatelist).subscribe((list)=>{
       this.associateList=list;
       this.datasource = new MatTableDataSource<Associates>(this.associateList);
-      console.log(this.associateList);
     });
   }
 
@@ -38,7 +37,8 @@ export class AssociatelistingComponent implements OnInit {
   }
 
   openPopup(code:number,title:string){
-    this.dialog.open(AddassociateComponent, {
+    this.store.dispatch(openpopup());
+    const dialogRef = this.dialog.open(AddassociateComponent, {
       width: '50%',
       enterAnimationDuration: '1000ms',
       exitAnimationDuration: '1000ms',
@@ -48,10 +48,18 @@ export class AssociatelistingComponent implements OnInit {
         length:this.associateList.length
       }
     })
+
+    dialogRef.afterClosed().subscribe(result => {
+     if(result){
+      let updatedArray = [...this.datasource.data, result];
+      this.datasource.data=updatedArray;
+     }
+    });
   }
 
   edit(id:any){
     this.openPopup(id,'Update Associate');
+    this.store.dispatch(getassociate({id:id}));
   }
 
   delete(id:any){
